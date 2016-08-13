@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".85"
+        android:id="@+id/term_label" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".15"
+        android:src="@drawable/remove_term_icon"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:id="@+id/remove_term_button"
+        android:padding="10dp"
+        android:background="@android:color/transparent" />
+
+</LinearLayout>

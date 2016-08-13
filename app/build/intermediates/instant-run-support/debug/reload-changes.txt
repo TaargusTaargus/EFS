@@ -1,0 +1,13 @@
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$BackFilterListener$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$AddItemClickListener$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$ItemListAdapter$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$FilterClickListener$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$InitItemsListTask$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$HomeFilterListener$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$FetchFSTask$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$AddBinClickListener$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$FetchMoreItemsTask$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$AddFilterClickListener$override.class
+CHANGED,/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/pronus/gmailfs/MainActivity$FetchRecentTask$override.class
