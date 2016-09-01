@@ -276,11 +276,14 @@
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="current_filter_title">Current Filters</string>
+    <string name="empty_results_label">No results found.</string>
     <string name="item_list_progress_label">Fetching emails … </string>
-    <string name="item_list_scroll_progress_label">Fetching more emails … </string>
+    <string name="okay_label">OK</string>
     <string name="recent_filter_title">Recent Filters</string>
-    <string name="save_filter_button_text">Save</string>
+    <string name="save_filter_button_text">Save search as … </string>
     <string name="save_label">Save</string>
+    <string name="search_default_label">Search for …</string>
+    <string name="select_user_dialog_title">Select Account</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
@@ -1246,6 +1249,9 @@
         <item name="android:background">?attr/controlBackground</item>
         <item name="android:minWidth">56dp</item>
         <item name="android:scaleType">center</item>
+    </style>
+    <style name="FullHeightDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFullscreen">true</item>
     </style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>

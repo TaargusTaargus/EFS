@@ -2,13 +2,16 @@
     <string name="app_name">GmailFS</string>
     <string name="recent_filter_title">Recent Filters</string>
     <string name="current_filter_title">Current Filters</string>
-    <string name="save_filter_button_text">Save</string>
+    <string name="save_filter_button_text">Save search as … </string>
     <string name="item_list_progress_label">Fetching emails … </string>
-    <string name="item_list_scroll_progress_label">Fetching more emails … </string>
     <string name="save_label">Save</string>
+    <string name="okay_label">OK</string>
     <string name="cancel_label">Cancel</string>
     <string name="add_filter_title_prompt">Filter Title</string>
     <string name="add_filter_text_prompt">Add Message Filter</string>
     <string name="add_filter_dialog_title">Create New Message Folder</string>
     <string name="add_bin_dialog_title">Create New Message Bin</string>
+    <string name="search_default_label">Search for …</string>
+    <string name="select_user_dialog_title">Select Account</string>
+    <string name="empty_results_label">No results found.</string>
 </resources>

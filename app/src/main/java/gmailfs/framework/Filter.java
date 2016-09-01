@@ -1,32 +1,8 @@
 package gmailfs.framework;
 
-import gmailfs.base.File;
 import pronus.gmailfs.R;
 
-public class Filter implements File {
-
-    public enum FilterType {
-
-        BIN( R.drawable.bin_icon ),
-        FOLDER( R.drawable.folder_icon);
-
-        private Integer icon;
-
-        FilterType( Integer icon ) {
-            this.icon = icon;
-        }
-
-        public Integer getIconResource() { return icon; }
-
-        public static FilterType stringToFilterType( String type ) {
-            for( FilterType val : FilterType.values() ) {
-                if( val.toString().equals( type.toUpperCase() ) )
-                    return val;
-            }
-            return null;
-        }
-
-    }
+public class Filter {
 
     public enum FilterKey {
 
@@ -55,20 +31,17 @@ public class Filter implements File {
     public final static int FOLDER_RESOURCE_ICON = R.drawable.folder_icon;
 
     private FilterKey key;
-    private FilterType type;
     private String filterText, filterTitle;
 
-    public Filter( String filter, String title, FilterKey key, FilterType type ) {
+    public Filter( String filter, String title, FilterKey key ) {
         this.filterText = filter;
         this.filterTitle = title;
         this.key = key;
-        this.type = type;
     }
 
-    public Integer getIconResource() { return type.getIconResource(); }
+    public Integer getIconResource() { return FOLDER_RESOURCE_ICON; }
     public FilterKey getFilterKey() { return key; }
-    public FilterType getFilterType() { return type; }
     public String getFilterText() { return filterText; }
-    public String getFileTitle() { return filterTitle; }
+    public String getFilterID() { return filterTitle; }
 
 }

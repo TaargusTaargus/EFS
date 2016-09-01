@@ -4,46 +4,60 @@ import android.content.Context;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import gmailfs.framework.Filter.FilterKey;
+import java.util.List;
 
 public class FileSystem {
 
     private Node root, current;
-    private Path path = new Path();
+    private Path path = new Path();//AppContext.path;
     private FileDB backend;
 
     public FileSystem( Context context ) {
         this.backend = new FileDB( context );
-        this.current = this.root = new Node( new Filter( "", "", null, null ), null );
+        backend.printDBtoLogcat();
+        this.current = this.root = new Node( new Filter( "", "", null ) );
+        path.add( current );
         loadChildren();
     }
 
     private void loadChildren() {
-        for( Filter filter : backend.retrieveChildren( path ) )
+        for( Filter filter : backend.retrieveFiltersFromPath( path ) )
             current.addChild( filter );
     }
 
     public boolean isRoot() { return root.equals( current ); }
 
-    public void addChild( Filter child ) {
-        child = new Filter( getCurrentFilter().getFilterText() + " " + child.getFilterText(),
-                             child.getFileTitle(), child.getFilterKey(), child.getFilterType() );
+    public LinkedList< Filter > currentFilters() {
+        LinkedList< Filter > filters = new LinkedList();
+        for( Node child : current.children.values() )
+            filters.add( child.getData() );
+        return filters;
+    }
+
+    public LinkedList< File > currentFiles() {
+        return backend.retrieveFilesFromQuery( path.getFilterText(), current.getData().getFilterKey() );
+    }
+
+    public void addFilter( Filter child ) {
         backend.insertFilter( child, path );
         current.addChild( child );
     }
 
+    public void addFiles( List< File > files ) {
+        backend.insertFiles( files, path );
+    }
+
     public void back() {
         path.remove( current );
-        current = current.getParent();
+        current = path.getLast();
     }
 
     public void close() { backend.close(); }
 
-    public LinkedList< Filter > currentFilters() {
-        LinkedList< Filter > filters = new LinkedList< Filter >();
-        for( Node child : current.children.values() )
-            filters.add( child.getData() );
-        return filters;
+    public void editFilter( Filter old, Filter newFilter ) {
+        backend.updateFilter( old, newFilter, path );
+        current.removeChild( old.getFilterID() );
+        current.addChild( newFilter );
     }
 
     public void forward( String fileID ) {
@@ -52,9 +66,10 @@ public class FileSystem {
         loadChildren();
     }
 
-    //public void removeChild( String childID ) {
-    //    current.removeChild( childID );
-    //}
+    public void removeFilter( Filter filter ) {
+        backend.recursiveRemoveFilter( filter, path );
+        current.removeChild( filter.getFilterID() );
+    }
 
     public void root() {
         path.clear();
@@ -62,32 +77,32 @@ public class FileSystem {
     }
 
     public Filter getCurrentFilter() { return current.getData(); }
+    public int totalFilesInDB() { return backend.getRowCount( FileDB.ITEM_TABLE_NAME ); }
+    public Node getCurrentNode() { return current; }
+    public Path getPath() { return path; }
 
     public class Node {
 
         private Filter data;
         private HashMap< String, Node > children = new HashMap();
-        private Node parent;
 
-        public Node( Filter data, Node parent ) {
+        public Node( Filter data ) {
             this.data = data;
-            this.parent = parent;
         }
 
         public void addChild( Filter child ) {
-            children.put( child.getFileTitle(), new Node( child, this ) );
+            children.put( child.getFilterID(), new Node( child ) );
         }
 
+        public void removeChild( String id ) {
+            children.remove( id );
+        }
+
+        public boolean hasChildren() { return !children.isEmpty(); }
+        public Filter getData() { return data; }
         public Node getChild( String fileID ) {
             return children.get( fileID );
         }
-
-        //public void removeChild( String fileID ) {
-        //    children.remove( fileID );
-        //}
-
-        public Filter getData() { return data; }
-        public Node getParent() { return parent; }
 
     }
 

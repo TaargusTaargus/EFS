@@ -15,7 +15,10 @@
         android:textSize="4.5pt"
         android:textStyle="bold"
         android:id="@+id/filter_title"
-        android:gravity="center" />
+        android:gravity="center"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
     <ImageView
         android:layout_width="match_parent"

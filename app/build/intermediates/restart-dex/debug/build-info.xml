@@ -4,30 +4,45 @@
     api-level="19"
     density="xhdpi"
     format="7"
-    timestamp="813044385446074"
-    token="-267305516245695279" >
+    timestamp="451447352940142"
+    token="-267305516245695279"
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="1737" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="2422" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="145" />
     <task
         name="verifier"
-        duration="0" />
+        duration="32" />
 
     <artifact
-        location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/outputs/apk/app-debug.apk"
-        type="MAIN" />
+        location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
 
-    <build timestamp="813044385446074" >
+    <build timestamp="451173481261053" >
         <artifact
             location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="451403418521083"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/builds/debug/451403418521083/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="451447352940142"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>
