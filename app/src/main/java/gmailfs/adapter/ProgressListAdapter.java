@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import gmailfs.framework.File;
@@ -44,6 +46,19 @@ public class ProgressListAdapter extends BaseAdapter {
                 .setImageResource( current.getIconResource() );
         ( ( TextView ) itemLayout.findViewById( R.id.list_item_label ) )
                 .setText( current.getSubject() );
+
+        String date = new SimpleDateFormat( "yyyyMMddHHmmss" ).format( new Date() );
+        long diff = Long.parseLong( date )
+                        - Long.parseLong( current.getTimestamp().replace( "-", "" ).replace( " ","" ).replace( ":", "" ) );
+        if( diff >= 10000000000l )
+            date = current.getTimestamp().substring( 5, 7 ) + "-" + current.getTimestamp().substring( 0, 4 );
+        else if( diff >= 1000000l )
+            date = current.getTimestamp().substring( 5, 10 );
+        else
+            date = current.getTimestamp().substring( 11, 16 );
+
+        ( ( TextView ) itemLayout.findViewById( R.id.list_item_date ) )
+                .setText( date );
         ( ( TextView ) itemLayout.findViewById( R.id.list_item_sublabel ) )
                 .setText( current.getSender() );
         return itemLayout;

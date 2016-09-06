@@ -61,11 +61,17 @@ public class FilterDialog extends DialogFragment {
         termList = ( LinearLayout ) layout.findViewById( R.id.term_list_layout );
         ImageButton addButton = ( ImageButton ) layout.findViewById( R.id.add_term_button );
         addButton.setOnClickListener( new AddTermListener( termList ) );
-        addButton.callOnClick();
 
-        if( existing != null )// && existing.getFilterText() != null )
-            terms.getFirst().setText( existing.getFilterText() );
 
+        if( existing != null ) {
+            int counter = 0;
+            for( String term : existing.getFilterText().split( " OR " ) ) {
+                addButton.callOnClick();
+                terms.get( counter++ ).setText( term );
+            }
+        }
+        else
+            addButton.callOnClick();
 
         builder.setView( layout )
                 .setCustomTitle( title )
@@ -109,7 +115,7 @@ public class FilterDialog extends DialogFragment {
     }
 
     private Filter constructFilter( String title, String [] terms ) {
-        return new Filter( TextUtils.join( " ", terms ), title, Filter.FilterKey.SUBJECT );
+        return new Filter( TextUtils.join( " OR ", terms ), title, Filter.FilterKey.SUBJECT );
     }
 
     public void insertFilterHints( Filter filter ) { this.existing = filter; }

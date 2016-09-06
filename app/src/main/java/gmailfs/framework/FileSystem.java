@@ -1,7 +1,9 @@
 package gmailfs.framework;
 
 import android.content.Context;
+import android.util.Log;
 
+import gmailfs.framework.Filter.FilterKey;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,10 +13,11 @@ public class FileSystem {
     private Node root, current;
     private Path path = new Path();//AppContext.path;
     private FileDB backend;
+    private HashMap< String, File > files;
 
     public FileSystem( Context context ) {
         this.backend = new FileDB( context );
-        backend.printDBtoLogcat();
+        this.files = backend.retrieveAllFiles();
         this.current = this.root = new Node( new Filter( "", "", null ) );
         path.add( current );
         loadChildren();
@@ -34,17 +37,22 @@ public class FileSystem {
         return filters;
     }
 
-    public LinkedList< File > currentFiles() {
-        return backend.retrieveFilesFromQuery( path.getFilterText(), current.getData().getFilterKey() );
-    }
+    public HashMap< String, File > currentFiles() { return files; }
 
     public void addFilter( Filter child ) {
         backend.insertFilter( child, path );
         current.addChild( child );
     }
 
-    public void addFiles( List< File > files ) {
-        backend.insertFiles( files, path );
+    public void addFile( File file ) {
+        files.put( file.getFileID(), file );
+        backend.insertFile( file );
+    }
+
+    public void addFiles( List< File > newFiles ) {
+        for( File file : newFiles )
+            files.put( file.getFileID(), file );
+        backend.insertFiles( newFiles );
     }
 
     public void back() {
@@ -73,6 +81,7 @@ public class FileSystem {
 
     public void root() {
         path.clear();
+        path.add( root );
         current = root;
     }
 

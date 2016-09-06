@@ -44,7 +44,6 @@ import java.util.regex.Pattern;
 
 import gmailfs.base.FilterDialogListener;
 import gmailfs.framework.AppContext;
-import gmailfs.framework.FileDB;
 import gmailfs.framework.FileSystem;
 import gmailfs.framework.Filter;
 import gmailfs.tasks.ListLoader;
@@ -422,7 +421,7 @@ public class MainActivity extends Activity
         }
 
         private void removeFilter() {
-            AppContext.fs.removeFilter(dragged);
+            AppContext.fs.removeFilter( dragged );
             refreshFilterViews();
         }
 

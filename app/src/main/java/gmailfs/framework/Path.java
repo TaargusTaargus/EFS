@@ -35,4 +35,9 @@ public class Path extends LinkedList< Node > {
         return path;
     }
 
+    public void clear() {
+        super.clear();
+        filterPath.clear();
+    }
+
 }

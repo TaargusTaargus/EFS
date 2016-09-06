@@ -2,7 +2,6 @@ package gmailfs.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -13,24 +12,22 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import gmailfs.adapter.ProgressListAdapter;
 import gmailfs.framework.AppContext;
 import gmailfs.framework.File;
-import gmailfs.framework.FileDB;
 import gmailfs.view.ProgressListView;
 
 public class ListLoader extends AsyncTask< String, Void, List< File > > {
 
-    private static final long MAX_ITEMS_IN_DB = 200l;
-    private static final long ITEMS_PER_REQUEST = 20l;
+    private static final long ITEMS_PER_REQUEST = 50l;
 
     private Context context;
     private Exception mLastError = null;
     private Gmail mService = null;
-    private int dbEntries;
     private ProgressListView list;
     private String nextPage = null;
 
@@ -49,7 +46,7 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
     protected List< File > doInBackground( String... query ) {
 
         try {
-            LinkedList< File > items = new LinkedList();
+            HashMap< String, File > db = AppContext.fs.currentFiles();
             String q = ( query.length > 0 && query[ 0 ] != null ) ? query[ 0 ] : "";
             ListMessagesResponse response = mService.users().messages().list( "me" )
                     .setMaxResults( ITEMS_PER_REQUEST )
@@ -57,19 +54,25 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
                     .execute();
 
             if( response.getResultSizeEstimate() == 0l )
-                return items;
+                return null;
 
-            for( Message res : response.getMessages() )
-                items.addFirst(
-                        File.FileFactory.parse( mService.users().messages().get( "me", res.getId() ).execute() )
-                );
+            LinkedList< File > files = new LinkedList();
+            for( Message res : response.getMessages() ) {
+                if( ! db.containsKey( res.getId() ) ) {
+                    File newFile = File.FileFactory.parse( mService.users().messages()
+                                            .get( "me", res.getId() ).execute() );
+                    files.add( newFile );
+                    AppContext.fs.addFile( newFile );
+                }
+                else
+                    files.add( db.get( res.getId() ) );
+            }
 
-            if( items.size() < ITEMS_PER_REQUEST )
+            if( files.size() < ITEMS_PER_REQUEST )
                 nextPage = null;
             else
                 nextPage = response.getNextPageToken();
-
-            return items;
+            return files;
         } catch ( Exception e ) {
             e.printStackTrace();
             mLastError = e;
@@ -80,7 +83,6 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
 
     @Override
     protected void onPreExecute() {
-        dbEntries = AppContext.fs.totalFilesInDB();
         list.showProgress();
     }
 

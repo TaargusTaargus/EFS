@@ -10,6 +10,7 @@ import android.util.Log;
 
 import gmailfs.framework.Filter.FilterKey;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,13 +68,13 @@ public class FileDB extends SQLiteOpenHelper {
     @Override
     public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) { }
 
-    public void insertFiles( List< File > files, Path path ) {
+    public void insertFiles( List< File > files ) {
         SQLiteDatabase write = getWritableDatabase();
         for( File file : files ) {
             ContentValues values = new ContentValues();
-            values.put( FileDB.ID_KEY, path.getFilterPath() );
+            values.put( FileDB.ID_KEY, file.getFileID() );
             values.put( FileDB.SUBJECT_KEY, file.getSubject() );
-            values.put( FileDB.SENDER_KEY, file.getSubject() );
+            values.put( FileDB.SENDER_KEY, file.getSender() );
             values.put( FileDB.TIME_KEY, file.getTimestamp() );
 
             write.insert( FileDB.ITEM_TABLE_NAME, null, values );
@@ -81,12 +82,12 @@ public class FileDB extends SQLiteOpenHelper {
         write.close();
     }
 
-    public void insertFile( File file, Path path ) {
+    public void insertFile( File file ) {
         SQLiteDatabase write = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put( FileDB.ID_KEY, path.getFilterPath() );
+        values.put( FileDB.ID_KEY, file.getFileID() );
         values.put( FileDB.SUBJECT_KEY, file.getSubject() );
-        values.put( FileDB.SENDER_KEY, file.getSubject() );
+        values.put( FileDB.SENDER_KEY, file.getSender() );
         values.put( FileDB.TIME_KEY, file.getTimestamp() );
 
         write.insert( FileDB.ITEM_TABLE_NAME, null, values );
@@ -96,14 +97,13 @@ public class FileDB extends SQLiteOpenHelper {
     public void insertFilter( Filter filter, Path path ) {
         SQLiteDatabase write = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put( FileDB.ID_KEY, path.getFilterPath() );
+        values.put( FileDB.PATH_KEY, path.getFilterPath() );
         values.put( FileDB.KEY_KEY, filter.getFilterKey().toString() );
         values.put( FileDB.TITLE_KEY, filter.getFilterID() );
         values.put( FileDB.TEXT_KEY, filter.getFilterText() );
 
         write.insert( FileDB.FILTER_TABLE_NAME, null, values );
         write.close();
-        printDBtoLogcat();
     }
 
     public void recursiveRemoveFilter( Filter filter, Path path ) {
@@ -138,21 +138,37 @@ public class FileDB extends SQLiteOpenHelper {
         write.close();
     }
 
-    public LinkedList< File > retrieveFilesFromQuery( String query, FilterKey key ) {
+    public HashMap< String, File > retrieveAllFiles() {
         SQLiteDatabase read = getReadableDatabase();
-        Cursor results = read.query( FileDB.FILTER_TABLE_NAME,
+        Cursor results = read.query( FileDB.ITEM_TABLE_NAME,
+                new String [] { FileDB.ID_KEY, FileDB.SUBJECT_KEY, FileDB.SENDER_KEY, FileDB.TIME_KEY },
+                null , null, null, null, FileDB.TIME_KEY + " DESC" );
+        HashMap< String, File > files = new HashMap();
+        while( results.moveToNext() )
+            files.put( results.getString( results.getColumnIndexOrThrow( FileDB.ID_KEY ) ),
+                    new File( results.getString( results.getColumnIndexOrThrow( FileDB.ID_KEY ) ),
+                            results.getString( results.getColumnIndexOrThrow( FileDB.SENDER_KEY ) ),
+                            results.getString( results.getColumnIndexOrThrow( FileDB.SUBJECT_KEY ) ),
+                            results.getString( results.getColumnIndexOrThrow( FileDB.TIME_KEY ) ) )
+            );
+        read.close();
+        return files;
+    }
+
+    public HashMap< String, File > retrieveFilesFromQuery( String query, FilterKey key ) {
+        SQLiteDatabase read = getReadableDatabase();
+        Cursor results = read.query( FileDB.ITEM_TABLE_NAME,
                 new String [] { FileDB.ID_KEY, FileDB.SUBJECT_KEY, FileDB.SENDER_KEY, FileDB.TIME_KEY },
                 key.getHeaderKeyword() + " LIKE " + "'%" + query + "%'", null, null, null,
                 FileDB.TIME_KEY + " DESC" );
-        LinkedList< File > files = new LinkedList();
-        while( results.moveToNext() ) {
-            files.add(
-                    new File( results.getString( results.getColumnIndexOrThrow( FileDB.ID_KEY ) ),
+        HashMap< String, File > files = new HashMap();
+        while( results.moveToNext() )
+            files.put( results.getString( results.getColumnIndexOrThrow( FileDB.ID_KEY ) ),
+                            new File( results.getString( results.getColumnIndexOrThrow( FileDB.ID_KEY ) ),
                                     results.getString( results.getColumnIndexOrThrow( FileDB.SENDER_KEY ) ),
                                     results.getString( results.getColumnIndexOrThrow( FileDB.SUBJECT_KEY ) ),
                                     results.getString( results.getColumnIndexOrThrow( FileDB.TIME_KEY ) ) )
             );
-        }
         read.close();
         return files;
     }
@@ -187,16 +203,32 @@ public class FileDB extends SQLiteOpenHelper {
         return cnt;
     }
 
-    public void printDBtoLogcat() {
+    public void printFileDBtoLogcat() {
         SQLiteDatabase read = getReadableDatabase();
-        String [] keys = new String [] { FileDB.PATH_KEY, FileDB.KEY_KEY, FileDB.TITLE_KEY, FileDB.TEXT_KEY };
+        String [] keys = new String [] { FileDB.ID_KEY, FileDB.SENDER_KEY, FileDB.SUBJECT_KEY, FileDB.TIME_KEY };
+        Cursor results = read.rawQuery( "SELECT  * FROM " + FileDB.ITEM_TABLE_NAME, null );
+        Log.d( "FileDB: ", TextUtils.join( ", ", keys ) );
+        while( results.moveToNext() ){
+            Log.d( "FileDB: ", results.getString( results.getColumnIndexOrThrow( FileDB.ID_KEY ) ) + ", "
+                                    +  results.getString( results.getColumnIndexOrThrow( FileDB.SENDER_KEY ) ) + ", "
+                                    + results.getString( results.getColumnIndexOrThrow( FileDB.SUBJECT_KEY ) ) + ", "
+                                    + results.getString( results.getColumnIndexOrThrow( FileDB.TIME_KEY ) ) );
+        }
+        results.close();
+        read.close();
+
+    }
+
+    public void printFilterDBtoLogcat() {
+        SQLiteDatabase read = getReadableDatabase();
+        String [] keys = new String [] { FileDB.PATH_KEY, FileDB.TITLE_KEY, FileDB.TEXT_KEY, FileDB.KEY_KEY };
         Cursor results = read.rawQuery( "SELECT  * FROM " + FileDB.FILTER_TABLE_NAME, null );
         Log.d( "FileDB: ", TextUtils.join( ", ", keys ) );
         while( results.moveToNext() ){
             Log.d( "FileDB: ", results.getString( results.getColumnIndexOrThrow( FileDB.PATH_KEY ) ) + ", "
-                                    +  results.getString( results.getColumnIndexOrThrow( FileDB.KEY_KEY ) ) + ", "
-                                    + results.getString( results.getColumnIndexOrThrow( FileDB.TITLE_KEY ) ) + ", "
-                                    + results.getString( results.getColumnIndexOrThrow( FileDB.TEXT_KEY ) ) );
+                    +  results.getString( results.getColumnIndexOrThrow( FileDB.TITLE_KEY ) ) + ", "
+                    + results.getString( results.getColumnIndexOrThrow( FileDB.TEXT_KEY ) ) + ", "
+                    + results.getString( results.getColumnIndexOrThrow( FileDB.KEY_KEY ) ) );
         }
         results.close();
         read.close();

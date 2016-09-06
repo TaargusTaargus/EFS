@@ -148,12 +148,12 @@
         "source": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_screen_simple.xml"
     },
     {
-        "merged": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
-        "source": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/notification_template_media.xml"
-    },
-    {
         "merged": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/res/merged/debug/layout/search_dialog_layout.xml",
         "source": "/Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/res/layout/search_dialog_layout.xml"
+    },
+    {
+        "merged": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
+        "source": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/notification_template_media.xml"
     },
     {
         "merged": "/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",

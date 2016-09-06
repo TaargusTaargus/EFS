@@ -13,6 +13,7 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,24 +45,26 @@ public class AdapterLoader extends AsyncTask< String, Void, List< File > > {
     protected List< File > doInBackground( String... query ) {
 
         try {
+            HashMap< String, File > db = AppContext.fs.currentFiles();
             String user = "me";
-            LinkedList< File > items = new LinkedList();
-            ListMessagesResponse response;
-            if( query.length > 0 && query[ 0 ] != null )
-                response = mService.users().messages().list( user )
-                        .setMaxResults( ITEMS_PER_REQUEST ).setQ( query[ 0 ] )
-                        .setPageToken( adapter.nextPage ).execute();
-            else
-                response = mService.users().messages().list( user )
-                        .setMaxResults( ITEMS_PER_REQUEST ).setPageToken( adapter.nextPage )
-                        .execute();
+            LinkedList< File > files = new LinkedList();
+            String q = ( query.length > 0 && query[ 0 ] != null ) ? query[ 0 ] : "";
+            ListMessagesResponse response = mService.users().messages().list( user )
+                                        .setMaxResults( ITEMS_PER_REQUEST ).setQ( q )
+                                        .setPageToken( adapter.nextPage ).execute();
 
             adapter.nextPage = response.getNextPageToken();
-            for( Message res : response.getMessages() )
-                items.add(
-                        File.FileFactory.parse( mService.users().messages().get( "me", res.getId() ).execute() )
-                );
-            return items;
+            for( Message res : response.getMessages() ) {
+                if( ! db.containsKey( res.getId() ) ) {
+                    File newFile = File.FileFactory.parse( mService.users().messages()
+                            .get( "me", res.getId() ).execute() );
+                    files.add( newFile );
+                    AppContext.fs.addFile( newFile );
+                }
+                else
+                    files.add( db.get( res.getId() ) );
+            }
+            return files;
         } catch ( Exception e ) {
             Log.d("ERROR", e + "");
             mLastError = e;

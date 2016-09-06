@@ -13,6 +13,7 @@ import pronus.gmailfs.R;
 
 public class ProgressListView {
 
+    private boolean hasFooter;
     private Context context;
     private LinearLayout footerProgress, listProgress, empty, parent;
     private ListView list;
@@ -26,7 +27,6 @@ public class ProgressListView {
         empty = ( LinearLayout ) parent.findViewById( R.id.empty_layout );
         listProgress = ( LinearLayout ) parent.findViewById( R.id.progress_layout );
         list = ( ListView ) parent.findViewById( R.id.results_list );
-        list.addFooterView( footerProgress );
 
         container.addView( parent );
     }
@@ -50,6 +50,10 @@ public class ProgressListView {
     }
 
     public void attachAdapter( ProgressListAdapter adapter ) {
+        if( ! hasFooter ) {
+            list.addFooterView( footerProgress );
+            hasFooter = true;
+        }
         list.setAdapter( adapter );
         list.setOnScrollListener( new ListScrollListener( adapter ) );
     }
@@ -72,8 +76,10 @@ public class ProgressListView {
                     previousTotal = totalItemCount;
                 }
             }
-            if( adapter.nextPage == null )
+            if( adapter.nextPage == null ) {
                 list.removeFooterView( footerProgress );
+                hasFooter = false;
+            }
             else {
                 if ( !loading && ( totalItemCount - visibleItemCount ) <= ( firstVisibleItem + visibleThreshold ) ) {
                     new AdapterLoader( adapter, context ).execute( adapter.query );

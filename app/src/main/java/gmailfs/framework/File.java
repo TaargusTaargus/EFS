@@ -1,5 +1,6 @@
 package gmailfs.framework;
 
+import java.io.IOException;
 import java.text.ParseException;
 import android.util.Log;
 
@@ -7,6 +8,7 @@ import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.MessagePartHeader;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,22 +39,21 @@ public class File {
 
     public static class FileFactory {
 
-        public final static SimpleDateFormat in = new SimpleDateFormat("dd MMM yyyy kk:mm:ss");
         public final static SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 
-        public static File parse( Message message ) throws ParseException {
+        public static File parse( Message message ) throws ParseException, IOException {
             HashMap< String, String > headers = new HashMap();
             for( MessagePartHeader header : message.getPayload().getHeaders() )
                 headers.put( header.getName(), header.getValue() );
-            Pattern pat = Pattern.compile( "([0-9]?[0-9] [A-Z][a-z][a-z] \\d\\d\\d\\d \\d\\d:\\d\\d:\\d\\d)" );
-            Matcher m = pat.matcher( headers.get( "Date" ) );
-            if( m.find() ) {
-                String tmp = m.group();
-                return new File(message.getId(), headers.get(File.SENDER_HEADER_KEY),
-                        headers.get( File.SUBJECT_HEADER_KEY ),
-                        out.format(in.parse(tmp)));
-            } else
-                throw new ParseException( "Unable to parse email timestamp.", 0 );
+            //Pattern pat = Pattern.compile( "([0-9]?[0-9] [A-Z][a-z][a-z] \\d\\d\\d\\d \\d\\d:\\d\\d:\\d\\d)" );
+            ////Matcher m = pat.matcher( headers.get( "Date" ) );
+            //if( m.find() ) {
+                //String tmp = m.group();
+            return new File( message.getId(), headers.get( File.SENDER_HEADER_KEY ),
+                                    headers.get( File.SUBJECT_HEADER_KEY ),
+                                    out.format( new Date( message.getInternalDate() ) ) );
+            //} else
+            //    throw new ParseException( "Unable to parse email timestamp.", 0 );
         }
 
     }
