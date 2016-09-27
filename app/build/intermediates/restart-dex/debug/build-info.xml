@@ -4,27 +4,27 @@
     api-level="19"
     density="xhdpi"
     format="7"
-    timestamp="537212638279119"
+    timestamp="420953735253871"
     token="-267305516245695279" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="3368" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="1928" />
     <task
         name="verifier"
-        duration="0" />
+        duration="183" />
 
     <artifact
         location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/outputs/apk/app-debug.apk"
         type="MAIN" />
 
-    <build timestamp="537212638279119" >
+    <build timestamp="420953735253871" >
         <artifact
             location="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />

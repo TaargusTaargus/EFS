@@ -8,6 +8,7 @@ import com.google.api.client.util.ExponentialBackOff;
 
 import com.google.api.services.gmail.GmailScopes;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -26,6 +27,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.DragEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,6 +56,7 @@ public class MainActivity extends Activity
         implements EasyPermissions.PermissionCallbacks, FilterDialogListener {
 
     private Filter dragged;
+    private GoogleAccountCredential credential;
     private ListLoader itemRequest;
     private ImageButton backButton, homeButton, searchButton;
     private ImageView currentFilterIcon, trashView, editView;
@@ -65,6 +68,7 @@ public class MainActivity extends Activity
     public static final int REQUEST_ACCOUNT_PICKER = 1000;
     public static final int REQUEST_AUTHORIZATION = 1001;
     private static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
     private static final String [] SCOPES = { GmailScopes.GMAIL_READONLY };
 
     @Override
@@ -105,8 +109,6 @@ public class MainActivity extends Activity
         list = new ProgressListView( listContainer, this );
 
         getAvailableAccounts();
-        refreshFilterViews();
-        getResultsFromApi();
     }
 
     @Override
@@ -147,6 +149,7 @@ public class MainActivity extends Activity
     }
 
     private void refreshFilterViews() {
+        Log.d( "refreshing filter views", "....");
         if( AppContext.fs.isRoot() ) {
             backButton.setEnabled( false );
             homeButton.setEnabled( false );
@@ -180,7 +183,7 @@ public class MainActivity extends Activity
 
     private void getAvailableAccounts() {
         Account[] accounts = AccountManager.get( this ).getAccounts();
-        HashMap< String, Account > accountMap = new HashMap< String, Account >();
+        HashMap< String, Account > accountMap = new HashMap();
         Pattern emailPattern = Patterns.EMAIL_ADDRESS;
         for ( Account account : accounts ) {
             if ( emailPattern.matcher( account.name ).matches() )
@@ -188,26 +191,29 @@ public class MainActivity extends Activity
         }
 
         Set< String > keys = accountMap.keySet();
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter( this, android.R.layout.simple_spinner_item,
-                keys.toArray( new String[ keys.size() ] ) );
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String [] items = keys.toArray( new String[ keys.size() ] );
+        ArrayAdapter< String > spinnerArrayAdapter = new ArrayAdapter( this, android.R.layout.simple_spinner_item, items );
+        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinner.setOnItemSelectedListener( new AccountSelectListener( items ) );
         spinner.setAdapter( spinnerArrayAdapter );
     }
 
     private void getResultsFromApi() {
-        AppContext.credential.setSelectedAccountName( ( String ) spinner.getSelectedItem() );
+        //AppContext.credential.setSelectedAccountName( ( String ) spinner.getSelectedItem() );
         if ( !isGooglePlayServicesAvailable() )
             acquireGooglePlayServices();
         else if ( !isDeviceOnline()  )
             Toast.makeText( this, "No network connection available.", Toast.LENGTH_LONG ).show();
-        else
+        else {
+            refreshFilterViews();
             refreshItemViews();
+        }
     }
 
     @Override
     protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
+        switch( requestCode ) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
                    Toast.makeText( this, 
@@ -287,6 +293,34 @@ public class MainActivity extends Activity
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
+    }
+
+    public class AccountSelectListener implements AdapterView.OnItemSelectedListener {
+
+        private String [] accounts;
+
+        public AccountSelectListener( String [] accounts ) {
+            this.accounts = accounts;
+        }
+
+        @Override
+        public void onItemSelected( AdapterView< ? > parent, View view, int position, long id ) {
+            if ( EasyPermissions.hasPermissions( getApplication(), Manifest.permission.GET_ACCOUNTS ) ) {
+                AppContext.credential.setSelectedAccountName( accounts[ position ] );
+                AppContext.fs.changeAccount( accounts[ position ] );
+                getResultsFromApi();
+            } else {
+                // Request the GET_ACCOUNTS permission via a user dialog
+                EasyPermissions.requestPermissions(
+                        this,
+                        "This app needs to access your Google account (via Contacts).",
+                        REQUEST_PERMISSION_GET_ACCOUNTS,
+                        Manifest.permission.GET_ACCOUNTS );
+            }
+        }
+
+        @Override
+        public void onNothingSelected( AdapterView<?> parent ) { }
     }
 
     public class BackFilterListener implements View.OnClickListener {
@@ -400,7 +434,7 @@ public class MainActivity extends Activity
                         ( new WarningDialog() {
                             @Override
                             public String getWarningMessage() {
-                                return "This filter has children, do you still want to delete it?";
+                                return "This filter has children, deleting it will also delete them. Do you want to continue?";
                             }
 
                             @Override

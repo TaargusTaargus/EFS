@@ -19,16 +19,17 @@ public class FileDB extends SQLiteOpenHelper {
     // database info
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "gfs.db";
-    private static final int ITEM_SIZE_LIMIT = 300;
 
 
     // filter table info
     public static final String FILTER_TABLE_NAME = "filters";
+    private static final String ACCOUNT_KEY = "ACCOUNT";
     private static final String PATH_KEY = "PATH";
     private static final String KEY_KEY = "KEY";
     private static final String TITLE_KEY = "TITLE";
     private static final String TEXT_KEY = "TEXT";
     private static final String [] FILTER_TABLE_KEYS = {
+            FileDB.ACCOUNT_KEY + " TEXT",
             FileDB.PATH_KEY + " TEXT",
             FileDB.TITLE_KEY + " TEXT",
             FileDB.TEXT_KEY + " TEXT",
@@ -54,6 +55,8 @@ public class FileDB extends SQLiteOpenHelper {
     private static final String ITEM_TABLE_CREATE =
             "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " (" +
                     TextUtils.join( ", ", ITEM_TABLE_KEYS) + ");";
+
+    private String accountName;
 
     public FileDB( Context context ) {
         super( context, DATABASE_NAME, null, DATABASE_VERSION );
@@ -97,6 +100,7 @@ public class FileDB extends SQLiteOpenHelper {
     public void insertFilter( Filter filter, Path path ) {
         SQLiteDatabase write = getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put( FileDB.ACCOUNT_KEY, accountName );
         values.put( FileDB.PATH_KEY, path.getFilterPath() );
         values.put( FileDB.KEY_KEY, filter.getFilterKey().toString() );
         values.put( FileDB.TITLE_KEY, filter.getFilterID() );
@@ -108,18 +112,21 @@ public class FileDB extends SQLiteOpenHelper {
 
     public void recursiveRemoveFilter( Filter filter, Path path ) {
         SQLiteDatabase write = getWritableDatabase();
-        String where = FileDB.PATH_KEY + " LIKE '" + path.getFilterPath() + filter.getFilterID() + "%'";
+        String where = FileDB.PATH_KEY + " LIKE '%" + path.getFilterPath() + filter.getFilterID() + "%'"
+                            + " AND " + FileDB.ACCOUNT_KEY + "='" + accountName + "'";
 
         write.delete( FileDB.FILTER_TABLE_NAME, where, null );
         write.close();
+        removeFilter( filter, path );
     }
 
     public void removeFilter( Filter filter, Path path ) {
         SQLiteDatabase write = getWritableDatabase();
         String where = FileDB.PATH_KEY + "=? AND "
-                                    + FileDB.TITLE_KEY + "=?";
+                                    + FileDB.TITLE_KEY + "=?"
+                        + " AND " + FileDB.ACCOUNT_KEY + "=?";
 
-        write.delete( FileDB.FILTER_TABLE_NAME, where, new String [] { path.getFilterPath(), filter.getFilterID() } );
+        write.delete( FileDB.FILTER_TABLE_NAME, where, new String [] { path.getFilterPath(), filter.getFilterID(), accountName } );
         write.close();
     }
 
@@ -133,7 +140,8 @@ public class FileDB extends SQLiteOpenHelper {
                         + pathToFilter.getFilterPath() + old.getFilterID() + "', '"
                         + pathToFilter.getFilterPath() + filter.getFilterID() + "')"
                         + " WHERE " + FileDB.PATH_KEY + " LIKE '"
-                        + pathToFilter.getFilterPath() + old.getFilterID() + "%'";
+                        + pathToFilter.getFilterPath() + old.getFilterID() + "%'"
+                        + " AND " + FileDB.ACCOUNT_KEY + "='" + accountName + "'";
         write.execSQL( updateRecursive );
         write.close();
     }
@@ -177,7 +185,7 @@ public class FileDB extends SQLiteOpenHelper {
         SQLiteDatabase read = getReadableDatabase();
         Cursor results = read.query( FileDB.FILTER_TABLE_NAME,
                 new String [] { FileDB.PATH_KEY, FileDB.KEY_KEY, FileDB.TITLE_KEY, FileDB.TEXT_KEY },
-                FileDB.PATH_KEY + "=?", new String [] { path.getFilterPath() },
+                FileDB.PATH_KEY + "=?" + " AND " + FileDB.ACCOUNT_KEY + "=?", new String [] { path.getFilterPath(), accountName },
                 null, null, FileDB.TITLE_KEY + " ASC" );
         LinkedList< Filter > children = new LinkedList();
         while( results.moveToNext() ) {
@@ -221,12 +229,13 @@ public class FileDB extends SQLiteOpenHelper {
 
     public void printFilterDBtoLogcat() {
         SQLiteDatabase read = getReadableDatabase();
-        String [] keys = new String [] { FileDB.PATH_KEY, FileDB.TITLE_KEY, FileDB.TEXT_KEY, FileDB.KEY_KEY };
+        String [] keys = new String [] { FileDB.ACCOUNT_KEY, FileDB.PATH_KEY, FileDB.TITLE_KEY, FileDB.TEXT_KEY, FileDB.KEY_KEY };
         Cursor results = read.rawQuery( "SELECT  * FROM " + FileDB.FILTER_TABLE_NAME, null );
         Log.d( "FileDB: ", TextUtils.join( ", ", keys ) );
         while( results.moveToNext() ){
-            Log.d( "FileDB: ", results.getString( results.getColumnIndexOrThrow( FileDB.PATH_KEY ) ) + ", "
-                    +  results.getString( results.getColumnIndexOrThrow( FileDB.TITLE_KEY ) ) + ", "
+            Log.d( "FileDB: ", results.getString( results.getColumnIndexOrThrow( FileDB.ACCOUNT_KEY ) ) + ", "
+                    + results.getString( results.getColumnIndexOrThrow( FileDB.PATH_KEY ) ) + ", "
+                    + results.getString( results.getColumnIndexOrThrow( FileDB.TITLE_KEY ) ) + ", "
                     + results.getString( results.getColumnIndexOrThrow( FileDB.TEXT_KEY ) ) + ", "
                     + results.getString( results.getColumnIndexOrThrow( FileDB.KEY_KEY ) ) );
         }
@@ -234,5 +243,7 @@ public class FileDB extends SQLiteOpenHelper {
         read.close();
 
     }
+
+    public void setAccountName( String accountName ) { this.accountName = accountName; }
 
 }

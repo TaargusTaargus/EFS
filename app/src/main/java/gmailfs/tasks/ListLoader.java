@@ -1,10 +1,13 @@
 package gmailfs.tasks;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -20,18 +23,19 @@ import gmailfs.adapter.ProgressListAdapter;
 import gmailfs.framework.AppContext;
 import gmailfs.framework.File;
 import gmailfs.view.ProgressListView;
+import pronus.gmailfs.MainActivity;
 
 public class ListLoader extends AsyncTask< String, Void, List< File > > {
 
     private static final long ITEMS_PER_REQUEST = 50l;
 
-    private Context context;
+    private Activity context;
     private Exception mLastError = null;
     private Gmail mService = null;
     private ProgressListView list;
     private String nextPage = null;
 
-    public ListLoader( ProgressListView list, Context context ) {
+    public ListLoader( ProgressListView list, Activity context ) {
         this.context = context;
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
@@ -68,9 +72,10 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
                     files.add( db.get( res.getId() ) );
             }
 
-            if( files.size() < ITEMS_PER_REQUEST )
+            if( files.size() < ITEMS_PER_REQUEST ) {
                 nextPage = null;
-            else
+                Log.d("NEXTPAGE","NEXT");
+            } else
                 nextPage = response.getNextPageToken();
             return files;
         } catch ( Exception e ) {
@@ -101,9 +106,13 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
 
     @Override
     protected void onCancelled() {
-        if ( mLastError != null )
-                Toast.makeText(context, "The following error occurred:\n"
-                        + mLastError.getMessage(), Toast.LENGTH_LONG).show();
+        if ( mLastError instanceof UserRecoverableAuthIOException) {
+            context.startActivityForResult(
+                    ( ( UserRecoverableAuthIOException ) mLastError ).getIntent(),
+                        MainActivity.REQUEST_AUTHORIZATION);
+        } else if ( mLastError != null )
+                    Toast.makeText(context, "The following error occurred:\n"
+                            + mLastError.getMessage(), Toast.LENGTH_LONG).show();
     }
 
 }

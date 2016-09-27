@@ -1,9 +1,6 @@
 package gmailfs.framework;
 
 import android.content.Context;
-import android.util.Log;
-
-import gmailfs.framework.Filter.FilterKey;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,16 +8,14 @@ import java.util.List;
 public class FileSystem {
 
     private Node root, current;
-    private Path path = new Path();//AppContext.path;
+    private Path path;
     private FileDB backend;
     private HashMap< String, File > files;
 
     public FileSystem( Context context ) {
         this.backend = new FileDB( context );
         this.files = backend.retrieveAllFiles();
-        this.current = this.root = new Node( new Filter( "", "", null ) );
-        path.add( current );
-        loadChildren();
+        reset();
     }
 
     private void loadChildren() {
@@ -74,9 +69,21 @@ public class FileSystem {
         loadChildren();
     }
 
+    public void changeAccount( String account ) {
+        reset();
+        backend.setAccountName( account );
+        loadChildren();
+    }
+
     public void removeFilter( Filter filter ) {
         backend.recursiveRemoveFilter( filter, path );
         current.removeChild( filter.getFilterID() );
+    }
+
+    public void reset() {
+        this.path = new Path();
+        this.current = this.root = new Node( new Filter( "", "", null ) );
+        path.add( current );
     }
 
     public void root() {
@@ -86,7 +93,6 @@ public class FileSystem {
     }
 
     public Filter getCurrentFilter() { return current.getData(); }
-    public int totalFilesInDB() { return backend.getRowCount( FileDB.ITEM_TABLE_NAME ); }
     public Node getCurrentNode() { return current; }
     public Path getPath() { return path; }
 

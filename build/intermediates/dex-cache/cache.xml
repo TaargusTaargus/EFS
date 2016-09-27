@@ -1,2 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.4.0_2cea3382678754ad3f5eeef8e895e9c78fb7f452.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.22.0/1d63f369ac78e4838a3197147012026e791008cb/google-oauth-client-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1d63f369ac78e4838a3197147012026e791008cb">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-oauth-client-1.22.0_be570bebe43710f881a45689a4651f86f730f243.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.22.0/7a0fe12b7d8189a821934d6f9d6586d00180e461/google-api-client-android-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="7a0fe12b7d8189a821934d6f9d6586d00180e461">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-api-client-android-1.22.0_dc8792ca09b17c7465249e29173ef5a80711cf37.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_d392762c350eb4eb61dd2f0353fce73b1c565771.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_7e25be200967ab66730a113c4c9ba2142e800c69.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="9919563cffd8e3732e944d3c437d4b9575a08448">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.google.firebase-firebase-common-9.0.2_82f7776cdf07f7635acb6e941ba1752eecce4e1a.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="829c6e46cb221c2102801221c648b77113743e81">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-auth-base-9.0.2_86b0d5c7e1f1dc9a43347dbee45f1103b3ca3001.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.22.0/6d1e1a76a16a244ab2f41775791be1dd0ec2878a/google-http-client-android-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="6d1e1a76a16a244ab2f41775791be1dd0ec2878a">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-http-client-android-1.22.0_4c36e8359cc8f60df9e9c0abb9e1eee016dd6fe7.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-gmail/v1-rev47-1.22.0/94024e3f0d4f17997797f0373e69e7d221228e65/google-api-services-gmail-v1-rev47-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="94024e3f0d4f17997797f0373e69e7d221228e65">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-api-services-gmail-v1-rev47-1.22.0_cc8fbc60de9c8715719b4acacbf5a4d90de9584f.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/f6c3aed1cdfa21b5c1737c915186ea93a95a58bd/jackson-core-2.1.3.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f6c3aed1cdfa21b5c1737c915186ea93a95a58bd">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/jackson-core-2.1.3_aeff63d4e621165094bef631e8779eefa2a65d94.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.22.0/244350c0c845c583717ade13f5666a452fd0cfa/google-api-client-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="0244350c0c845c583717ade13f5666a452fd0cfa">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-api-client-1.22.0_81e3aad548fd1534af43715381c50525309c4aa9.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="92fe7061f98eb0356d133ab7088db7ba946c90b6">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/instant-run_1b0a43bb20b121fba8942a81a362c0dbe7133450.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.4.0_24bff585a7950b4ae274705f804ec23ca8ed27ac.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.22.0/cc014d64ae11117e159d334c99d9c246d9b36f44/google-http-client-jackson2-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="cc014d64ae11117e159d334c99d9c246d9b36f44">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-http-client-jackson2-1.22.0_7afb75fb8d3f73d28ee640b65d2fd79f7264e4c6.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_d689492e7ff49cc035d2e0ced4747c10a1e6d5af.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="94d9cedd04b124aed044ac71c451a292856d854c">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-9.0.2_cacf388622d5bdd1d2bcc2d5b33abd128bebde3f.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/pub.devrel/easypermissions/0.1.5/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2ffd97c466e0021572f3c7333839c71ecdf393ed">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/pub.devrel-easypermissions-0.1.5_e3982bbc2d8a34e966d1cc4eee7fdde4f9bd0af2.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.22.0/d441fc58329c4a4c067acec04ac361627f66ecc8/google-http-client-1.22.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="d441fc58329c4a4c067acec04ac361627f66ecc8">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/google-http-client-1.22.0_4be4c6add33757ce4af6c0e1178f9e9f92e46ddf.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="aec1bc54964a85d851c2c1b1cb7f90f7dbd755ab">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-9.0.2_67be00b9d047e0c87ec33fb4ef94fa0046c9b411.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="060a7157438a0b1b0706b99c430fb3ecbc5a79a4">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-auth-9.0.2_bcac5b762ed0604b128981bcf9898880bfc62474.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.guava/guava-jdk5/17.0/463f8378feba44df7ba7cd9272d01837dad62b36/guava-jdk5-17.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="463f8378feba44df7ba7cd9272d01837dad62b36">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/guava-jdk5-17.0_1e2bd7a50d8d5985c9fc286f6ed576a25bb71573.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.4.0_63155ad82a98f60be03e5ef6dc3141b88b80bd4a.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/jsr305-1.3.9_d1660352a540b2a2a475774d1f1f83832137679d.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c176abaa2322357091bc629a4185c8b52cd000c1">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_8ce5a67bec15860963bc9d6d47c9d7d8a9939c61.jar" />
+    </item>
+    <item
+        jar="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4022261eeea0d92eb2997a68d2c1f084a16abad9">
+        <dex dex="/Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-9.0.2_d18a61d300ee46180ad44a047803b64fba9b893c.jar" />
+    </item>
+
+</items>

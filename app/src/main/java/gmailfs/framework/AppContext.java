@@ -15,7 +15,6 @@ public class AppContext {
 
     public static GoogleAccountCredential credential;
     public static FileSystem fs;
-    //public static Path path = new Path();
     public static String user;
     public static Integer screenWidth, screenHeight;
 

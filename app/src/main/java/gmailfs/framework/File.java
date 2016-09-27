@@ -45,15 +45,12 @@ public class File {
             HashMap< String, String > headers = new HashMap();
             for( MessagePartHeader header : message.getPayload().getHeaders() )
                 headers.put( header.getName(), header.getValue() );
-            //Pattern pat = Pattern.compile( "([0-9]?[0-9] [A-Z][a-z][a-z] \\d\\d\\d\\d \\d\\d:\\d\\d:\\d\\d)" );
-            ////Matcher m = pat.matcher( headers.get( "Date" ) );
-            //if( m.find() ) {
-                //String tmp = m.group();
-            return new File( message.getId(), headers.get( File.SENDER_HEADER_KEY ),
-                                    headers.get( File.SUBJECT_HEADER_KEY ),
+            String sender = headers.get( File.SENDER_HEADER_KEY );
+            String subject = headers.get( File.SUBJECT_HEADER_KEY );
+            return new File( message.getId(),
+                                ( sender != null && sender != "" ) ? sender : "( unknown sender )",
+                                ( subject != null && subject != "" ) ? subject : "( no subject )",
                                     out.format( new Date( message.getInternalDate() ) ) );
-            //} else
-            //    throw new ParseException( "Unable to parse email timestamp.", 0 );
         }
 
     }
