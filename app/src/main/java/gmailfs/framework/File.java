@@ -1,8 +1,8 @@
 package gmailfs.framework;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
-import android.util.Log;
 
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.MessagePartHeader;
@@ -10,29 +10,27 @@ import com.google.api.services.gmail.model.MessagePartHeader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import pronus.gmailfs.R;
 
-public class File {
+public class File implements Serializable {
 
     public final static String DATE_HEADER_KEY = "Date";
     public final static String SUBJECT_HEADER_KEY = "Subject";
     public final static String SENDER_HEADER_KEY = "From";
     public final static int ITEM_RESOURCE_ICON = R.drawable.item_icon;
 
-    private String id, sender, subject, timestamp;
+    private String fileId, sender, subject, timestamp;
 
     public File( String id, String sender, String subject, String timestamp ) {
-        this.id = id;
+        this.fileId = id;
         this.sender = sender;
         this.subject = subject;
         this.timestamp = timestamp;
     }
 
     public Integer getIconResource() { return File.ITEM_RESOURCE_ICON; }
-    public String getFileID() { return id; }
+    public String getFileID() { return fileId; }
     public String getSender() { return sender; }
     public String getSubject() { return subject; }
     public String getTimestamp() { return timestamp; }

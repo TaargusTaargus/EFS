@@ -72,11 +72,11 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
                     files.add( db.get( res.getId() ) );
             }
 
-            if( files.size() < ITEMS_PER_REQUEST ) {
+            if( files.size() < ITEMS_PER_REQUEST )
                 nextPage = null;
-                Log.d("NEXTPAGE","NEXT");
-            } else
+            else
                 nextPage = response.getNextPageToken();
+            Log.d("CALLED","CALLED0");
             return files;
         } catch ( Exception e ) {
             e.printStackTrace();
@@ -95,9 +95,11 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
     protected void onPostExecute( List< File > output ) {
         list.showList();
         if ( output == null || output.size() == 0 ) {
+            Log.d("CALLED","CALLED1");
             Toast.makeText( context, "No results found.", Toast.LENGTH_LONG ).show();
             list.showEmpty();
         } else {
+            Log.d("CALLED","CALLED2");
             ProgressListAdapter adapter = new ProgressListAdapter( output, context );
             adapter.startPage = adapter.nextPage = nextPage;
             list.attachAdapter( adapter );
@@ -106,6 +108,7 @@ public class ListLoader extends AsyncTask< String, Void, List< File > > {
 
     @Override
     protected void onCancelled() {
+        Log.d("CALLED","CALLED3");
         if ( mLastError instanceof UserRecoverableAuthIOException) {
             context.startActivityForResult(
                     ( ( UserRecoverableAuthIOException ) mLastError ).getIntent(),

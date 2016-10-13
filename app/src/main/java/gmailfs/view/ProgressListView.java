@@ -1,15 +1,20 @@
 package gmailfs.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import gmailfs.adapter.ProgressListAdapter;
 import gmailfs.tasks.AdapterLoader;
 import pronus.gmailfs.R;
+import pronus.gmailfs.ViewFileActivity;
 
 public class ProgressListView {
 
@@ -56,6 +61,7 @@ public class ProgressListView {
         }
         list.setAdapter( adapter );
         list.setOnScrollListener( new ListScrollListener( adapter ) );
+        list.setOnItemClickListener( new ItemClickListener( adapter ) );
     }
 
     public class ListScrollListener implements AbsListView.OnScrollListener {
@@ -91,6 +97,24 @@ public class ProgressListView {
 
         @Override
         public void onScrollStateChanged( AbsListView view, int scrollState ) { }
+
+    }
+
+    public class ItemClickListener implements AdapterView.OnItemClickListener {
+
+        private ProgressListAdapter adapter;
+
+        public ItemClickListener( ProgressListAdapter adapter ) {
+            this.adapter = adapter;
+        }
+
+        @Override
+        public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
+            Log.d("CALLED","DAFDSAFA");
+            Intent intent = new Intent( context, ViewFileActivity.class );
+            intent.putExtra( ViewFileActivity.FILE_EXTRA, adapter.getItem( position ) );
+            context.startActivity( intent );
+        }
 
     }
 

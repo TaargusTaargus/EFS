@@ -27,14 +27,14 @@ public class AdapterLoader extends AsyncTask< String, Void, List< File > > {
 
     private Context context;
     private Exception mLastError = null;
-    private Gmail mService = null;
+    private Gmail service = null;
     private ProgressListAdapter adapter;
 
     public AdapterLoader( ProgressListAdapter adapter, Context context ) {
         this.context = context;
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-        mService = new Gmail.Builder(
+        service = new Gmail.Builder(
                 transport, jsonFactory, AppContext.credential )
                 .setApplicationName( "GmailFS" )
                 .build();
@@ -49,14 +49,14 @@ public class AdapterLoader extends AsyncTask< String, Void, List< File > > {
             String user = "me";
             LinkedList< File > files = new LinkedList();
             String q = ( query.length > 0 && query[ 0 ] != null ) ? query[ 0 ] : "";
-            ListMessagesResponse response = mService.users().messages().list( user )
+            ListMessagesResponse response = service.users().messages().list( user )
                                         .setMaxResults( ITEMS_PER_REQUEST ).setQ( q )
                                         .setPageToken( adapter.nextPage ).execute();
 
             adapter.nextPage = response.getNextPageToken();
             for( Message res : response.getMessages() ) {
                 if( ! db.containsKey( res.getId() ) ) {
-                    File newFile = File.FileFactory.parse( mService.users().messages()
+                    File newFile = File.FileFactory.parse( service.users().messages()
                             .get( "me", res.getId() ).execute() );
                     files.add( newFile );
                     AppContext.fs.addFile( newFile );

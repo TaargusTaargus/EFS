@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:2:1-28:12
+ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:2:1-30:12
 	package
 		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:3:5-29
 		INJECTED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml
@@ -26,7 +26,7 @@ ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManif
 	android:name
 		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:7:22-68
 application
-ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:8:5-26:19
+ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:8:5-28:19
 MERGED from [com.android.support:appcompat-v7:23.4.0] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:23.4.0] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/AndroidManifest.xml:7:5-20
 MERGED from [com.android.support:support-vector-drawable:23.4.0] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/AndroidManifest.xml:7:5-20
@@ -95,8 +95,12 @@ category#android.intent.category.LAUNCHER
 ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:18:17-77
 	android:name
 		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:18:27-74
+activity#pronus.gmailfs.ViewFileActivity
+ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:21:9-22:20
+	android:name
+		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:21:19-51
 meta-data#com.google.android.gms.version
-ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:22:9-24:69
+ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:24:9-26:69
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:21:9-23:69
@@ -108,9 +112,9 @@ MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/pronus/
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:21:9-23:69
 	android:value
-		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:24:13-66
+		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:26:13-66
 	android:name
-		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:23:13-58
+		ADDED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml:25:13-58
 uses-sdk
 INJECTED from /Users/pronus/AndroidStudioProjects/GmailFS/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.4.0] /Users/pronus/AndroidStudioProjects/GmailFS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/AndroidManifest.xml:21:5-23:78
